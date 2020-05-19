@@ -1,8 +1,18 @@
 import React from 'react';
 import './App.css';
 import { Document, Page } from 'react-pdf'
+import Translate from "./translate-api/Translate";
 
 function App() {
+  const onClick = ({target})=>{
+    if (target) {
+      const text = target.textContent;
+      Translate(text, (err, res, body)=>{
+        console.log(JSON.stringify(body ));
+      });
+    }
+  }
+
   return (
     <div className="App">
       <div>
@@ -11,14 +21,7 @@ function App() {
           renderMode="svg"
         >
           <Page pageNumber={1}
-                onClick={(a)=>{
-                  console.log("onclick:", a)
-                  const b = a.target
-                  console.log(b)
-                  if(b){
-                    console.log(b.innerHTML)
-                  }
-                }}
+                onClick={onClick}
           />
         </Document>
         <p>Page {1} of {1}</p>
