@@ -7,8 +7,8 @@ function App() {
   const onClick = ({target})=>{
     if (target) {
       const text = target.textContent;
-      Translate(text, (err, res, body)=>{
-        console.log(JSON.stringify(body ));
+      Translate(text, (res)=>{
+        console.log(res);
       });
     }
   }
