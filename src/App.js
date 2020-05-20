@@ -8,7 +8,7 @@ function App() {
     if (target) {
       const text = target.textContent;
       Translate(text, (res)=>{
-        console.log(res);
+        alert(res);
       });
     }
   }
