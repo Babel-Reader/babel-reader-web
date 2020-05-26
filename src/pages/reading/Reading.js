@@ -3,15 +3,13 @@ import {Document, Page} from "react-pdf";
 import React from "react";
 import Translate from "../../translate-api/Translate";
 
-const Reading = ()=>{
-  const file = 'sample.pdf'
+const Reading = ({file = 'sample.pdf', inLang = '', outLang = 'en'}) => {
 
-  const onClick = ({target})=>{
+  const onClick = ({target}) => {
     if (target) {
       const text = target.textContent;
-
       if (text) {
-        Translate(text, (res)=>{
+        Translate(text, {inLang, outLang}, (res) => {
           alert(res);
         });
       }
@@ -19,15 +17,12 @@ const Reading = ()=>{
   }
 
   return (
-    <div>
-      <div>
-        <Document
-          file={file}
-          >
-          <Page pageNumber={1} onClick={onClick}/>
-        </Document>
-      </div>
-    </div>
+    <>
+      <Document
+        file={file}>
+        <Page pageNumber={1} onClick={onClick}/>
+      </Document>
+    </>
   );
 }
 
