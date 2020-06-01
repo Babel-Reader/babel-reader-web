@@ -1,0 +1,18 @@
+
+
+.reading-container {
+  display: flex;
+  flex-grow: 1;
+
+  div[class^='nav-btn'] {
+    background-color: #eeeeee;
+    flex-grow: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .reading-document {
+  }
+}

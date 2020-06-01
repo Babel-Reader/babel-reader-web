@@ -4,7 +4,8 @@ const url='https://us-central1-babel-reader-web.cloudfunctions.net/translate';//
 
 
 export default (text,params, callback)=>{
-  const {inLang='', outLang='en'} = params
+  const inLang = params.inLang.key === 'auto' ? '' : params.inLang.key;
+  const outLang = params.outLang.key;
   const pathParams = `outLang=${outLang}&inLang=${inLang}`
 
   Http.open("POST", `${url}?${pathParams}`, true);
