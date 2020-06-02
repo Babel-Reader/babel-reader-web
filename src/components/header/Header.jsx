@@ -28,12 +28,12 @@ export default () => {
         <div>
 
         </div>
-        <p className='header-title'>
-          <div className='header-book-title'>
+        <div className='header-title'>
+          <p className='header-book-title'>
             {file ? (typeof file === 'string' ? file : file.path) : ''}
-          </div>
+          </p>
           <i>Click to open a book</i>
-        </p>
+        </div>
       </section>
 
       <div className="lang-input">

@@ -3,9 +3,9 @@
 .reading-container {
   display: flex;
   flex-grow: 1;
+  background-color: gray;
 
   div[class^='nav-btn'] {
-    background-color: #eeeeee;
     flex-grow: 1;
     text-align: center;
     display: flex;
@@ -14,5 +14,13 @@
   }
 
   .reading-document {
+    .react-pdf__Page__canvas{
+      outline-color: black;
+      outline-style: dashed;
+    }
+
+    .selected{
+      background-color:#3399ff32;
+    }
   }
 }
