@@ -64,7 +64,7 @@ const Reading = () => {
           {/*todo get page width?*/}
           {selected && (
             <TranslationPopup selected={selected} translation={translation}>
-              {translation}
+              {translation || '...'}
             </TranslationPopup>
           )}
         </Page>

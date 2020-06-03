@@ -1,5 +1,4 @@
 
-
 .reading-container {
   display: flex;
   flex-grow: 1;
@@ -14,13 +13,18 @@
   }
 
   .reading-document {
-    .react-pdf__Page__canvas{
-      outline-color: black;
-      outline-style: dashed;
-    }
+    .react-pdf__Page {
+      height: 0;
 
-    .selected{
-      background-color:#3399ff32;
+      .react-pdf__Page__canvas {
+        outline-color: black;
+        outline-style: dashed;
+      }
+
+      .selected {
+        background-color: #3399ff32;
+        border-radius: 1px;
+      }
     }
   }
 }
