@@ -1,0 +1,30 @@
+
+.reading-container {
+  display: flex;
+  flex-grow: 1;
+  background-color: gray;
+
+  div[class^='nav-btn'] {
+    flex-grow: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .reading-document {
+    .react-pdf__Page {
+      height: 0;
+
+      .react-pdf__Page__canvas {
+        outline-color: black;
+        outline-style: dashed;
+      }
+
+      .selected {
+        background-color: #3399ff32;
+        border-radius: 1px;
+      }
+    }
+  }
+}

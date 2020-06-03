@@ -1,29 +1,22 @@
 import React from 'react';
 import './App.css';
-import { Document, Page } from 'react-pdf'
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import Home from "./components/home/Home";
+import Reading from "./components/reading/Reading";
 
 function App() {
+
   return (
-    <div className="App">
-      <div>
-        <Document
-          file="sample.pdf"
-          renderMode="svg"
-        >
-          <Page pageNumber={1}
-                onClick={(a)=>{
-                  console.log("onclick:", a)
-                  const b = a.target
-                  console.log(b)
-                  if(b){
-                    console.log(b.innerHTML)
-                  }
-                }}
-          />
-        </Document>
-        <p>Page {1} of {1}</p>
-      </div>
-    </div>
+    <Router>
+      <Switch>
+        <Route path='/read'>
+          <Reading/>
+        </Route>
+        <Route path='/'>
+          <Home/>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
