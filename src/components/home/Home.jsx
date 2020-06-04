@@ -12,6 +12,7 @@ export default withRouter(()=>{
   const [file, setFile] = useState("ALICE'S ADVENTURES IN WONDERLAND.pdf");
   const [pageNb, setPageNb] = useState(1);
   const [pageCount, setPageCount] = useState();
+  const [pageScale, setPageScale] = useState(1);
   const [languages, setLanguages] = useState({
     in: {
       key: 'auto'
@@ -28,7 +29,9 @@ export default withRouter(()=>{
       pageCount,
       setPageCount,
       languages,
-      setLanguages
+      setLanguages,
+      pageScale,
+      setPageScale
     }}>
       <section className="container">
         <Header />

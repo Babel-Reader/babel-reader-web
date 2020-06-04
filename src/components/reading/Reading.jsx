@@ -1,6 +1,6 @@
 import {withRouter} from 'react-router-dom';
 import {Document, Page} from "react-pdf";
-import React, {useContext, useState} from "react";
+import React, {useContext, useRef, useState} from "react";
 import Translate from "../../translate-api/Translate";
 
 import './Reading.scss'
@@ -9,9 +9,10 @@ import TranslationPopup from "./translation-popup/TranslationPopup";
 
 
 const Reading = () => {
-  const {languages, file, pageNb, setPageNb, pageCount, setPageCount} = useContext(BookContext);
+  const {languages, file, pageNb, setPageNb, pageCount, setPageCount, pageSCale, setPageScale} = useContext(BookContext);
   const [selected, setSelected] = useState();
   const [translation, setTranslation] = useState('')
+  const ref = useRef();
 
   const {in: inLang, out: outLang} = languages;
 
@@ -43,7 +44,7 @@ const Reading = () => {
   }
 
   return (
-    <div className='reading-container'>
+    <div className='reading-container' ref={ref}>
       <div className='nav-btn-back'
            onClick={() => {
              setSelected(null);
@@ -60,8 +61,15 @@ const Reading = () => {
           setPageCount(numPages)
         }}
         file={file}>
-        <Page pageNumber={pageNb} onClick={onClick}>
-          {/*todo get page width?*/}
+        <Page pageNumber={pageNb} onClick={onClick}
+          scale={pageSCale}
+          onLoadSuccess={(page)=>{
+            const widthRatio = ref.current.offsetWidth / page.width || 1;
+            const heightRatio = ref.current.offsetHeight / page.height || 1;
+
+            setPageScale(Math.min(widthRatio, heightRatio));
+          }}
+        >
           {selected && (
             <TranslationPopup selected={selected} translation={translation}>
               {translation || '...'}

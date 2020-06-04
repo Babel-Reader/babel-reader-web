@@ -3,6 +3,7 @@ import React from "react";
 import './TranslationPopup.scss'
 
 export default ({selected, children})=>{
+  //todo: center on sentence and resize
 
   return (
     <div className='translation-popup'
