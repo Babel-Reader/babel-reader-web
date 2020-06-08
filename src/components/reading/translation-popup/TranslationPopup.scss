@@ -1,67 +1,56 @@
 
 
-.translation-popup {
-  position: absolute;
-  width: max-content;
-  height: 1rem;
-  transform: translateY(-2rem) translateX(-50%);
-  left: 50%;
+.animate{
+  animation: pop 0.1s linear 1;
+}
 
+.translation-popup {
+
+  position: absolute;
+  width: 75%;
+  text-align: center;
 
   padding: 6px;
-  white-space: nowrap;
   border-radius: 5px;
   background-color: #fff;
 
   transform-style: preserve-3d;
   z-index: 200;
 
-  color: #0641AD;
+  color: #0641ad;
   box-shadow: 1px 1px 20px rgba(#0641AD, 0.3);
 
+  left: 0;
+  right: 0;
+  margin: 21px auto auto;
+
+
   &:after {
-    content: '';
+    color: transparent;
+    content: " ";
     position: absolute;
-    display: block;
-
-    width: 10px;
-
-    height: 10px;
-
-    transform-origin: 50% 50%;
-
-    transform: rotate(45deg) translateX(-50%);
-
-    background-color: #fff;
-
+    bottom: 100%;
     left: 50%;
-
-    z-index: 400;
-    bottom: -8px;
-
-    clip-path: polygon(100% 100%, 100% 0, 0 100%);
-
-  }
-
-  &:before {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    transform-origin: 50% 50%;
-    transform: rotate(45deg) translateX(-50%) translateZ(-1px);
-    background-color: #fff;
-    left: 50%;
-    z-index: -1;
-    box-shadow: -1px -1px 20px #aaa;
-    top: auto;
-    bottom: -8px;
-
+    margin-left: -0.5rem;
+    border-width: 0.5rem;
+    border-style: solid;
+    border-bottom-color: #fff;
   }
 
   .translation-popup-content {
     background-color: white;
+  }
+
+  @keyframes pop {
+    0% {
+      transform: scale(0.90);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 
 }

@@ -23,11 +23,11 @@ const PageScaleSlider = ({pageScale, setPageScale})=>{
 }
 
 export default ()=>{
-  const {pageNb, setPageNb, pageCount, pageScale, setPageSCale} = useContext(BookContext);
+  const {pageNb, setPageNb, pageCount, pageScale, setPageScale} = useContext(BookContext);
 
   return (
     <footer className='home-footer'>
-      <PageScaleSlider {...{pageScale, setPageSCale}} />
+      <PageScaleSlider {...{pageScale, setPageScale}} />
 
       <PageInput {...{pageNb, setPageNb, pageCount}}/>
     </footer>

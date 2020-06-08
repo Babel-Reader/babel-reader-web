@@ -23,10 +23,9 @@
 
   .lang-input {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     :first-child {
-      margin-bottom: 0.5rem;
+      margin-right: 0.5rem;
     }
 
     .lang-combo-box {

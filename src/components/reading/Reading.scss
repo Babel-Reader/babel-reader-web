@@ -27,6 +27,9 @@
   .reading-document {
     width: 100%;
     .react-pdf__Page {
+      :hover:not([class^=translation-popup]):not(.selected){
+        background-color: #3399ff14;
+      }
       height: 0;
 
       .react-pdf__Page__canvas {
@@ -37,7 +40,16 @@
       .selected {
         background-color: #3399ff32;
         border-radius: 1px;
+
+        animation: select 0.1s linear 1;
+
+        @keyframes select{
+          50%{
+            background-color: #3399ff64;
+          }
+        }
       }
+
     }
   }
 }

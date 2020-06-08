@@ -6,6 +6,20 @@ import {languageList} from "../../utils";
 import TextField from "@material-ui/core/TextField";
 import {BookContext} from "../home/Home";
 
+const LangInput = ({value, onChange}) => {
+
+  return (
+    <Autocomplete
+      className="lang-combo-box"
+      options={languageList}
+      value={value}
+      onChange={onChange}
+      getOptionLabel={(option) => option.key}
+      renderInput={(params) => <TextField {...params} label="Inlang" />}
+    />
+  )
+}
+
 export default () => {
   const {
     file,
@@ -37,30 +51,25 @@ export default () => {
       </section>
 
       <div className="lang-input">
-        <Autocomplete
-          className="lang-combo-box"
-          options={languageList}
-          value={languages.in}
-          onChange={(e, lang) => setLanguages(
-            {
+        <LangInput {...{
+          value: languages.in,
+          onChange: (e, lang) => {
+            setLanguages({
               ...languages,
               in: lang
-            }
-          )}
-          getOptionLabel={(option) => option.key}
-          renderInput={(params) => <TextField {...params} label="Inlang" variant="outlined"/>}
-        />
-        <Autocomplete
-          className="lang-combo-box"
-          options={languageList}
-          value={languages.out}
-          onChange={(e, lang) => setLanguages({
-            ...languages,
-            out: lang,
-          })}
-          getOptionLabel={(option) => option.key}
-          renderInput={(params) => <TextField {...params} label="Outlang" variant="outlined"/>}
-        />
+            })
+          }
+        }}/>
+
+        <LangInput {...{
+          value: languages.out,
+          onChange: (e, lang) => {
+            setLanguages({
+              ...languages,
+              out: lang
+            })
+          }
+        }}/>
       </div>
 
     </header>

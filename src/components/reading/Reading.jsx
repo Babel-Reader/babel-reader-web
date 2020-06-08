@@ -1,6 +1,6 @@
 import {withRouter} from 'react-router-dom';
 import {Document, Page} from "react-pdf";
-import React, {useContext, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import Translate from "../../translate-api/Translate";
 
 import './Reading.scss'
@@ -9,13 +9,13 @@ import TranslationPopup from "./translation-popup/TranslationPopup";
 
 
 const Reading = () => {
-  const {languages, file, pageNb, setPageNb, pageCount, setPageCount, pageSCale, setPageScale} = useContext(BookContext);
+  const {languages, file, pageNb, setPageNb, pageCount, setPageCount, pageScale, setPageScale} = useContext(BookContext);
   const [selected, setSelected] = useState();
   const [translation, setTranslation] = useState('')
+  const [page, setPage] = useState();
   const ref = useRef();
 
   const {in: inLang, out: outLang} = languages;
-
 
   const select = (target) => {
     setTranslation('')
@@ -43,6 +43,11 @@ const Reading = () => {
     select(selection)
   }
 
+  useEffect(()=>{
+    setPageScale(1)
+  }, [pageNb])
+
+
   return (
     <div className='reading-container' ref={ref}>
       <div className='nav-btn-back'
@@ -61,18 +66,21 @@ const Reading = () => {
           setPageCount(numPages)
         }}
         file={file}>
-        <Page pageNumber={pageNb} onClick={onClick}
-          scale={pageSCale}
+        <Page
+          className={`reading-page`}
+          pageNumber={pageNb} onClick={onClick}
+          scale={pageScale}
           onLoadSuccess={(page)=>{
             const widthRatio = ref.current.offsetWidth / page.width || 1;
             const heightRatio = ref.current.offsetHeight / page.height || 1;
 
             setPageScale(Math.min(widthRatio, heightRatio));
+            setPage(page)
           }}
         >
-          {selected && (
-            <TranslationPopup selected={selected} translation={translation}>
-              {translation || '...'}
+          {selected && translation && (
+            <TranslationPopup selected={selected} translation={translation} maxWidth={page.width}>
+              {translation}
             </TranslationPopup>
           )}
         </Page>
