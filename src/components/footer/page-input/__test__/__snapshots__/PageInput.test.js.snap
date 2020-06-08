@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can match snapshot 1`] = `
+<div
+  className="page-input"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <div
+      className="MuiFormControl-root MuiTextField-root"
+    >
+      <div
+        className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          autoFocus={false}
+          className="MuiInputBase-input MuiOutlinedInput-input"
+          disabled={false}
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={false}
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
+          type="text"
+        />
+        <fieldset
+          aria-hidden={true}
+          className="PrivateNotchedOutline-root-1 MuiOutlinedInput-notchedOutline"
+          style={
+            Object {
+              "paddingLeft": 8,
+            }
+          }
+        >
+          <legend
+            className="PrivateNotchedOutline-legend-2"
+            style={
+              Object {
+                "width": 0.01,
+              }
+            }
+          >
+            <span
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "&#8203;",
+                }
+              }
+            />
+          </legend>
+        </fieldset>
+      </div>
+    </div>
+  </form>
+  <div
+    className="page-input-total"
+  >
+    
+  </div>
+</div>
+`;

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can match snapshot 1`] = `
+<div
+  className="reading-container"
+>
+  <div
+    className="nav-btn-back"
+    onClick={[Function]}
+  >
+    &lt;
+  </div>
+  <div
+    className="react-pdf__Document reading-document"
+  >
+    <div
+      className="react-pdf__message react-pdf__message--no-data"
+    >
+      No PDF file specified.
+    </div>
+  </div>
+  <div
+    className="nav-btn-forward"
+    onClick={[Function]}
+  >
+    &gt;
+  </div>
+</div>
+`;

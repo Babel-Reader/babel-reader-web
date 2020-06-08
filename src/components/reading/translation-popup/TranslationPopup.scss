@@ -1,13 +1,11 @@
-
-
-.animate{
+.animate {
   animation: pop 0.1s linear 1;
 }
 
 .translation-popup {
-
   position: absolute;
-  width: 75%;
+  max-width: 75%;
+  width: max-content;
   text-align: center;
 
   padding: 6px;
@@ -18,16 +16,15 @@
   z-index: 200;
 
   color: #0641ad;
-  box-shadow: 1px 1px 20px rgba(#0641AD, 0.3);
+  box-shadow: 1px 1px 20px rgba(#0641ad, 0.3);
 
   left: 0;
   right: 0;
   margin: 21px auto auto;
 
-
   &:after {
     color: transparent;
-    content: " ";
+    content: ' ';
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -43,7 +40,7 @@
 
   @keyframes pop {
     0% {
-      transform: scale(0.90);
+      transform: scale(0.9);
     }
     50% {
       transform: scale(1.1);
@@ -52,5 +49,4 @@
       transform: scale(1);
     }
   }
-
 }

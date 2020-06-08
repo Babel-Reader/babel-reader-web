@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can match snapshot 1`] = `
+<div
+  className="translation-popup animate"
+  onAnimationEnd={[Function]}
+  onClick={[Function]}
+  style={
+    Object {
+      "top": "",
+    }
+  }
+>
+  <span
+    className="translation-popup-content"
+  >
+    Test Content
+  </span>
+</div>
+`;
