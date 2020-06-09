@@ -6,14 +6,14 @@ import TextField from '@material-ui/core/TextField';
 import { languageList } from '../../utils';
 import { BookContext } from '../home/Home';
 
-const LangInput = ({ value, onChange, options = languageList }) => (
+const LangInput = ({ value, onChange, options = languageList, label }) => (
   <Autocomplete
     className="lang-combo-box"
     options={options}
     value={value}
     onChange={onChange}
     getOptionLabel={(option) => option.key}
-    renderInput={(params) => <TextField {...params} label="Inlang" />}
+    renderInput={(params) => <TextField {...params} label={label} />}
   />
 );
 
@@ -43,6 +43,7 @@ export default () => {
       <div className="lang-input">
         <LangInput
           {...{
+            label: 'Inlang',
             value: languages.in,
             onChange: (e, lang) => {
               setLanguages({
@@ -55,6 +56,7 @@ export default () => {
 
         <LangInput
           {...{
+            label: 'Outlang',
             value: languages.out,
             onChange: (e, lang) => {
               setLanguages({
