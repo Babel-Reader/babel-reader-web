@@ -1,14 +1,12 @@
 {
 	"env": {
 		"browser": true,
-		"node": true,
 		"es6": true,
-		"jest/globals": true
+		"node": true
 	},
 	"extends": [
-		"react-app",
-		"plugin:import/react",
-		"eslint:recommended"
+		"eslint:recommended",
+		"plugin:react/recommended"
 	],
 	"globals": {
 		"Atomics": "readonly",
@@ -22,9 +20,12 @@
 		"sourceType": "module"
 	},
 	"plugins": [
-		"jest"
+		"react"
 	],
 	"rules": {
+		"react/prop-types": 0,
+		"react/display-name": 0,
+		"react/jsx-indent": [1, 2]
 	},
 	"settings": {
 		"react": {

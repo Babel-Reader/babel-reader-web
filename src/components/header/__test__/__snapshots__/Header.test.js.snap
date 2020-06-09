@@ -184,7 +184,7 @@ exports[`can match snapshot 1`] = `
           data-shrink={false}
           id="undefined-label"
         >
-          Inlang
+          Outlang
         </label>
         <div
           className="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
