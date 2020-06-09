@@ -36,7 +36,7 @@ const Reading = () => {
     let selection = null;
 
     if (target && target.parentElement.classList.contains('react-pdf__Page__textContent')) {
-      target.classList.add('selected')
+     target.classList.add("selected")
       const text = target.textContent;
       if (text) {
         selection = target;
@@ -86,9 +86,9 @@ const Reading = () => {
           }}
         >
           {selected && translation && (
-            <TranslationPopup selected={selected} translation={translation}>
-              {translation}
-            </TranslationPopup>
+          <TranslationPopup selected={selected} translation={translation}>
+            {translation}
+          </TranslationPopup>
           )}
         </Page>
       </Document>
