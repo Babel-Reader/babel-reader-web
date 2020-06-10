@@ -1,7 +1,3 @@
-export const languageList = [
-  { key: 'auto' },
-  { key: 'en' },
-  { key: 'fr' },
-  { key: 'es' },
-  { key: 'de' },
-];
+export const bookTitle = (file) => {
+  return file ? (typeof file === 'string' ? file : file.path) : '';
+};
