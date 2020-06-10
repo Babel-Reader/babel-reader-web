@@ -19,10 +19,16 @@
 
   .nav-btn-back {
     left: 0;
+    font-size: 8vw;
+    cursor: pointer;
+    text-shadow: 0.4vw 0.4vw rgba(64, 62, 62, 0.25);
   }
 
   .nav-btn-forward {
     right: 0;
+    font-size: 8vw;
+    cursor: pointer;
+    text-shadow: 0.4vw 0.4vw rgba(64, 62, 62, 0.25);
   }
 
   .reading-document {
