@@ -1,11 +1,14 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import './Header.scss';
-import { useDropzone } from 'react-dropzone';
-import { Autocomplete } from '@material-ui/lab';
+import {useDropzone} from 'react-dropzone';
+import {Autocomplete} from '@material-ui/lab';
 import TextField from '@material-ui/core/TextField';
-import { bookTitle } from '../../utils';
-import { BookContext } from '../home/Home';
-import { getLanguageList } from '../../App';
+import {bookTitle} from '../../utils';
+import {BookContext} from '../home/Home';
+import {getLanguageList} from '../../App';
+import {isSignedIn, signIn, signOut, storage} from "../../services/firebase/firebase";
+import Button from "@material-ui/core/Button";
+
 
 const LangInput = ({ value, onChange, options = getLanguageList(), label }) => (
   <Autocomplete
@@ -21,9 +24,19 @@ const LangInput = ({ value, onChange, options = getLanguageList(), label }) => (
 export default () => {
   const { file, setFile, languages, setLanguages } = useContext(BookContext);
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const {getRootProps, getInputProps} = useDropzone({
     onDrop: (acceptedFiles) => {
       acceptedFiles[0] && setFile(acceptedFiles[0]);
+      if (isSignedIn()) {
+        //todo: avoid name collision. Arrange by user
+        const reference1 = storage.ref().child('book.pdf');
+        reference1.put(acceptedFiles[0]).then(() => {
+          console.log("done")
+        }, (e) => {
+          console.error(e)
+        })
+      }
+
     },
     accept: '.pdf',
   });
@@ -40,7 +53,6 @@ export default () => {
           <i>Click to open a book</i>
         </div>
       </section>
-
       <div className="lang-input">
         <LangInput
           {...{
@@ -69,6 +81,18 @@ export default () => {
           }}
         />
       </div>
+
+      <Button onClick={()=>{
+        signIn();
+      }}>
+        sign in
+      </Button>
+      <Button onClick={()=>{
+        signOut();
+      }}>
+        Sign out
+      </Button>
+
     </header>
   );
 };

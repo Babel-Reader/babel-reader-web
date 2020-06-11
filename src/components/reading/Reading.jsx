@@ -1,10 +1,10 @@
 import { Document, Page } from 'react-pdf';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import Translate from '../../translate-api/Translate';
 
 import './Reading.scss';
 import { BookContext } from '../home/Home';
 import TranslationPopup from './translation-popup/TranslationPopup';
+import translate from "../../services/translate-api";
 
 const Reading = () => {
   const {
@@ -40,7 +40,7 @@ const Reading = () => {
       const text = target.textContent;
       if (text) {
         selection = target;
-        Translate(text, { inLang, outLang }, (res) => {
+        translate(text, { inLang, outLang }, (res) => {
           setTranslation(res);
         });
       }
