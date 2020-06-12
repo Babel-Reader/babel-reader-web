@@ -55,6 +55,7 @@ const Reading = () => {
 
   return (
     <div className="reading-container" ref={ref}>
+      {pageNb > 1 && 
       <div
         className="nav-btn-back"
         onClick={() => {
@@ -65,7 +66,11 @@ const Reading = () => {
         }}
       >
         {'<'}
-      </div>
+      </div>}
+      {pageNb <= 1 &&
+      <div
+        className="nav-btn-disabled"
+      />}
       <Document
         className="reading-document"
         onLoadSuccess={({ numPages }) => {
@@ -92,6 +97,7 @@ const Reading = () => {
           )}
         </Page>
       </Document>
+      {pageNb < pageCount && 
       <div
         className="nav-btn-forward"
         onClick={() => {
@@ -102,7 +108,11 @@ const Reading = () => {
         }}
       >
         {'>'}
-      </div>
+      </div>}
+      {pageNb >= pageCount &&
+      <div
+        className="nav-btn-disabled"
+      />}
     </div>
   );
 };
