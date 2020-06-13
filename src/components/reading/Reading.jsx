@@ -5,6 +5,7 @@ import Translate from '../../translate-api/Translate';
 import './Reading.scss';
 import { BookContext } from '../home/Home';
 import TranslationPopup from './translation-popup/TranslationPopup';
+import Button from '@material-ui/core/Button';
 
 const Reading = () => {
   const {
@@ -55,17 +56,16 @@ const Reading = () => {
 
   return (
     <div className="reading-container" ref={ref}>
-      <div
+      <Button
         className="nav-btn-back"
+        disabled={pageNb<=1}
         onClick={() => {
           setSelected(null);
-          if (pageNb > 1) {
-            setPageNb(pageNb - 1);
-          }
+          setPageNb(pageNb - 1);
         }}
       >
         {'<'}
-      </div>
+      </Button>
       <Document
         className="reading-document"
         onLoadSuccess={({ numPages }) => {
@@ -92,17 +92,16 @@ const Reading = () => {
           )}
         </Page>
       </Document>
-      <div
+      <Button
         className="nav-btn-forward"
+        disabled={pageNb >= pageCount}
         onClick={() => {
           setSelected(null);
-          if (!pageCount || pageNb < pageCount) {
-            setPageNb(pageNb + 1);
-          }
+          setPageNb(pageNb + 1);
         }}
       >
         {'>'}
-      </div>
+      </Button>
     </div>
   );
 };

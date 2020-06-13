@@ -3,16 +3,17 @@ import './Header.scss';
 import { useDropzone } from 'react-dropzone';
 import { Autocomplete } from '@material-ui/lab';
 import TextField from '@material-ui/core/TextField';
-import { languageList } from '../../utils';
+import { bookTitle } from '../../utils';
 import { BookContext } from '../home/Home';
+import { getLanguageList } from '../../App';
 
-const LangInput = ({ value, onChange, options = languageList, label }) => (
+const LangInput = ({ value, onChange, options = getLanguageList(), label }) => (
   <Autocomplete
     className="lang-combo-box"
     options={options}
     value={value}
     onChange={onChange}
-    getOptionLabel={(option) => option.key}
+    getOptionLabel={(option) => option.nativeName || option.name || option.key}
     renderInput={(params) => <TextField {...params} label={label} />}
   />
 );
@@ -34,7 +35,7 @@ export default () => {
         <div />
         <div className="header-title">
           <p className="header-book-title">
-            {file ? (typeof file === 'string' ? file : file.path) : ''}
+            {bookTitle(file)}
           </p>
           <i>Click to open a book</i>
         </div>
@@ -64,7 +65,7 @@ export default () => {
                 out: lang,
               });
             },
-            options: languageList.slice(1),
+            options: getLanguageList().slice(1),
           }}
         />
       </div>

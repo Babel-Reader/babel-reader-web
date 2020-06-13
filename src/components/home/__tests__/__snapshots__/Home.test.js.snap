@@ -295,12 +295,30 @@ exports[`can match snapshot 1`] = `
   <div
     className="reading-container"
   >
-    <div
-      className="nav-btn-back"
+    <button
+      className="MuiButtonBase-root MuiButton-root MuiButton-text nav-btn-back Mui-disabled Mui-disabled"
+      disabled={true}
+      onBlur={[Function]}
       onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={-1}
+      type="button"
     >
-      &lt;
-    </div>
+      <span
+        className="MuiButton-label"
+      >
+        &lt;
+      </span>
+    </button>
     <div
       className="react-pdf__Document reading-document"
     >
@@ -310,12 +328,30 @@ exports[`can match snapshot 1`] = `
         Loading PDF…
       </div>
     </div>
-    <div
-      className="nav-btn-forward"
+    <button
+      className="MuiButtonBase-root MuiButton-root MuiButton-text nav-btn-forward"
+      disabled={false}
+      onBlur={[Function]}
       onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
     >
-      &gt;
-    </div>
+      <span
+        className="MuiButton-label"
+      >
+        &gt;
+      </span>
+    </button>
   </div>
   <footer
     className="home-footer"
