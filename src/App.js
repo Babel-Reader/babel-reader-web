@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './components/home/Home';
+import Home from './components/pages/home/Home';
 import { pdfjs } from 'react-pdf';
+import Library from './components/pages/library';
+import { bookTitle } from 'utils';
+import { auth } from 'services/firebase/firebase';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -30,22 +33,25 @@ let languageList = [
   },
 ];
 
-export const getLanguageList = () => {
-  return languageList;
-};
-
-function App() {
+const fetchLanguageList = () => {
   fetch(
-    'https://api.cognitive.microsofttranslator.com/languages?api-version=3.0'
+    'https://api.cognitive.microsofttranslator.com/languages?api-verson=3.0'
   )
     .then((res) => res.json())
     .then((res) => {
       if (res && res.translation) {
+        const langValueForKey = (key) => {
+          return {
+            key,
+            ...res.translation[key],
+          };
+        };
+
         languageList = [
           languageList[0],
-          res.translation['en'],
-          res.translation['es'],
-          res.translation['fr'],
+          langValueForKey('en'),
+          langValueForKey('fr'),
+          langValueForKey('es'),
         ];
         Object.keys(res.translation).forEach((key) => {
           if (key !== 'en' && key !== 'fr' && key !== 'es') {
@@ -58,15 +64,60 @@ function App() {
         });
       }
     });
+};
+
+export const BookContext = React.createContext({});
+
+function App() {
+  const [file, setFile] = useState("ALICE'S ADVENTURES IN WONDERLAND.pdf");
+  const [user, setUser] = useState(auth.currentUser);
+  const [pageNb, setPageNb] = useState(1);
+  const [pageCount, setPageCount] = useState();
+  const [pageScale, setPageScale] = useState(1);
+  const [languages, setLanguages] = useState({
+    in: languageList[0],
+    out: languageList[2],
+  });
+
+  useEffect(() => {
+    const title = bookTitle(file);
+    const pageTitle = 'Babel Reader';
+    document.title = title ? `${pageTitle}: ${title}` : pageTitle;
+  }, [file]);
+
+  useEffect(() => {
+    fetchLanguageList();
+  }, []);
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+    <BookContext.Provider
+      value={{
+        file,
+        setFile,
+        pageNb,
+        setPageNb,
+        pageCount,
+        setPageCount,
+        languages,
+        setLanguages,
+        pageScale,
+        setPageScale,
+        languageList,
+        user,
+        setUser,
+      }}
+    >
+      <Router>
+        <Switch>
+          <Route path="/library">
+            <Library />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </BookContext.Provider>
   );
 }
 

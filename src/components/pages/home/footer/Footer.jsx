@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { BookContext } from '../home/Home';
 import PageInput from './page-input/PageInput';
 
 import './Footer.scss';
 import Slider from '@material-ui/core/Slider';
+import { BookContext } from 'App';
 
 const PageScaleSlider = ({ pageScale, setPageScale }) => {
   return (

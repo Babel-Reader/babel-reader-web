@@ -2,9 +2,9 @@ import { Document, Page } from 'react-pdf';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import './Reading.scss';
-import { BookContext } from '../home/Home';
 import TranslationPopup from './translation-popup/TranslationPopup';
-import translate from "../../services/translate-api";
+import translate from "services/translate-api";
+import { BookContext } from 'App';
 
 const Reading = () => {
   const {
