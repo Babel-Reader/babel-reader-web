@@ -5,12 +5,6 @@ exports[`can match snapshot 1`] = `
   className="reading-container"
 >
   <div
-    className="nav-btn-back"
-    onClick={[Function]}
-  >
-    &lt;
-  </div>
-  <div
     className="react-pdf__Document reading-document"
   >
     <div
@@ -18,12 +12,6 @@ exports[`can match snapshot 1`] = `
     >
       No PDF file specified.
     </div>
-  </div>
-  <div
-    className="nav-btn-forward"
-    onClick={[Function]}
-  >
-    &gt;
   </div>
 </div>
 `;

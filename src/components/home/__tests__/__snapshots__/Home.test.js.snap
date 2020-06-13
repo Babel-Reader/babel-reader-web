@@ -296,11 +296,8 @@ exports[`can match snapshot 1`] = `
     className="reading-container"
   >
     <div
-      className="nav-btn-back"
-      onClick={[Function]}
-    >
-      &lt;
-    </div>
+      className="nav-btn-disabled"
+    />
     <div
       className="react-pdf__Document reading-document"
     >
@@ -309,12 +306,6 @@ exports[`can match snapshot 1`] = `
       >
         Loading PDF…
       </div>
-    </div>
-    <div
-      className="nav-btn-forward"
-      onClick={[Function]}
-    >
-      &gt;
     </div>
   </div>
   <footer
