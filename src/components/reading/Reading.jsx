@@ -69,7 +69,7 @@ const Reading = () => {
       </div>}
       {pageNb <= 1 &&
       <div
-        className="nav-btn-disabled"
+        className="nav-btn-back-disabled"
       />}
       <Document
         className="reading-document"
@@ -111,7 +111,7 @@ const Reading = () => {
       </div>}
       {pageNb >= pageCount &&
       <div
-        className="nav-btn-disabled"
+        className="nav-btn-forward-disabled"
       />}
     </div>
   );
