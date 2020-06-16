@@ -1,0 +1,13 @@
+
+.book-list-item{
+  display: flex;
+
+  .progress-bar{
+    position: absolute;
+    height: 2rem;
+    background-color: #eeeeee;
+    z-index: -1;
+    left: 0.25rem;
+  }
+
+}

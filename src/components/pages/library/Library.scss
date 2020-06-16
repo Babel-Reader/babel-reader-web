@@ -1,0 +1,27 @@
+
+.library{
+  .library-content{
+    max-width: 90%;
+    margin: 2rem auto;
+  }
+
+  .book-list{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #eeeeee7f;
+
+    .MuiButton-label{
+      text-align: left;
+      justify-content: left;
+    }
+
+    li:not(:last-of-type) {
+      border-bottom-style: solid;
+      border-bottom-color: #eeeeee7f;
+
+    }
+  }
+}

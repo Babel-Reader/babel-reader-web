@@ -1,0 +1,33 @@
+.home-header {
+
+  .header-section{
+    display: flex;
+    flex-grow: 1;
+  }
+
+  .right {
+    justify-content: flex-end;
+  }
+
+  .MuiToolbar-root {
+    justify-content: space-between;
+  }
+
+  .dropzone {
+    background-color: #00000032;
+    border-color: #00000064;
+    color: black;
+    margin-left: 1rem;
+    padding: 0.5rem ;
+  }
+
+  .lang-input {
+    display: flex;
+    min-width: 20rem;
+    .lang-combo-box{
+      margin-left: 1rem;
+      width: inherit;
+      flex-grow: 1;
+    }
+  }
+}
