@@ -9,7 +9,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Dropzone from 'components/dropzone';
 
-export default () => {
+export default ({history}) => {
   const { languages, setLanguages, languageList, user, setUser, file, setFile } = useContext(BookContext);
 
   const LangInput = ({ value, onChange, options = languageList, label }) => {
@@ -23,12 +23,14 @@ export default () => {
     />);
   };
 
+
   return (
     <AppBar position='static' className='home-header'>
       <Toolbar>
         <div className='header-section left'>
           <Button
-            href='/library'>
+            onClick={()=>history.push('/library')}
+            >
             Library
           </Button>
           <Dropzone {...{
@@ -43,7 +45,7 @@ export default () => {
           <div className="lang-input header-section">
             <LangInput
               {...{
-                label: 'Inlang',
+                label: 'Book Language',
                 value: languages.in,
                 onChange: (e, lang) => {
                   setLanguages({
@@ -56,7 +58,7 @@ export default () => {
 
             <LangInput
               {...{
-                label: 'Outlang',
+                label: 'Translation Language',
                 value: languages.out,
                 onChange: (e, lang) => {
                   setLanguages({

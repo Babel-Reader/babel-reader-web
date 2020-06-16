@@ -1,16 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { storage, upload } from 'services/firebase/firebase';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { storage } from 'services/firebase/firebase';
 import { withRouter } from 'react-router-dom';
 import Dropzone from 'components/dropzone';
-import BookItem from 'components/pages/library/BookItem';
 import { BookContext } from 'App';
 import './Library.scss';
 import Header from 'components/pages/library/header';
+import BookList, { BookListUploading } from 'components/pages/library/BookList/BookList';
+import IconButton from '@material-ui/core/IconButton';
+import { Refresh } from '@material-ui/icons';
+
+export const LibraryContext = createContext({})
 
 export default withRouter(({ history }) => {
   const { user, setFile } = useContext(BookContext);
   const [books, setBooks] = useState([]);
   const [sampleBooks, setSampleBooks] = useState([]);
+  const [uploadingBooks, setUploadingBooks] = useState([]);
 
   const fetchBooks = () => {
     if (user) {
@@ -31,62 +36,71 @@ export default withRouter(({ history }) => {
 
   useEffect(fetchBooks, [user]);
 
-  const openBook = (book)=>{
-    setFile(book);
+  const openBook = (book, name)=>{
+    setFile({
+      name,
+      url: book
+    });
     history.push('/');
   }
 
-  const uploadBook = (book)=>{
-    const task = upload(book, `/data/${user.uid}/${book.path}`);
-    task.on('state_changed', ()=>{
-      //todo: progress bar
-    }, (err)=>{
-      console.error(err)
-    }, fetchBooks);
+  const uploadBooks = (books)=>{
+    setUploadingBooks(books.map(book => {
+        return {
+          file: book,
+          uploadUrl: `/data/${user.uid}/${book.path}`,
+        };
+      },
+    ));
   }
 
-  const bookList = (books = []) => (
-    books.map((book) => {
-        return (
-          <BookItem
-            key={`book-${book.location.path}`}
-            book={book}
-            openBook={openBook}
-          />
-        );
-      },
-    )
-  );
-
   return (
-    <div className='library'>
-      <Header {...{ history }}/>
-      <div className='library-content'>
-        <Dropzone {...{
-          onDrop: (files) => {
-            if (files[0]) {
-              user ?
-                files.forEach(uploadBook) :
-                openBook(files[0]);
-            }
-          },
-        }}>
-          Drop a PDF book here or click to open
-        </Dropzone>
-        {user && (
-          <div>
-            <h2>Your books:</h2>
-            <ul className='book-list'>
-              {bookList(books)}
-            </ul>
-          </div>
-        )}
-        <h2>Sample Books:</h2>
-        <ul className='book-list'>
-          {bookList(sampleBooks)}
-        </ul>
+    <LibraryContext.Provider value={{
+      books,
+      setBooks,
+      uploadingBooks,
+      setUploadingBooks,
+      sampleBooks,
+      setSampleBooks,
+      fetchBooks,//todo
+      openBook
+    }    }>
 
+      <div className='library'>
+        <Header {...{ history }}/>
+        <div className='library-content'>
+          <Dropzone {...{
+            onDrop: (files) => {
+              if (files[0]) {
+                user ?
+                  uploadBooks(files) :
+                  openBook(files[0]);
+              }
+            },
+          }}>
+            Drop a PDF book here or click to open
+          </Dropzone>
+          <IconButton onClick={fetchBooks}>
+            <Refresh/>
+          </IconButton>
+          <ul className='book-list'>
+            <BookListUploading />
+          </ul>
+          {user && (
+            <div>
+              <h2>Your books:</h2>
+              <ul className='book-list'>
+                <BookList list={books} showOptions/>
+              </ul>
+            </div>
+          )}
+          <h2>Sample Books:</h2>
+          <ul className='book-list'>
+            <BookList list={sampleBooks}/>
+          </ul>
+
+        </div>
       </div>
-    </div>
+    </LibraryContext.Provider>
   );
 });

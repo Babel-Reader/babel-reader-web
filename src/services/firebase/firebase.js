@@ -26,8 +26,8 @@ export const signOut = (setUser)=>{
   return auth.signOut().then(()=>setUser(null))
 }
 
-export const upload = (file, path) => {
-  const reference = storage.ref().child(path);
-  return reference && reference.put(file)
-};
-
+// export const upload = (file, path) => {
+//   const reference = storage.ref().child(path);
+//   return reference && reference.put(file)
+// };
+//
