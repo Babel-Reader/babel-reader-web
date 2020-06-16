@@ -13,11 +13,11 @@ exports[`can match snapshot 1`] = `
       <div
         className="header-section left"
       >
-        <a
-          aria-disabled={false}
+        <button
           className="MuiButtonBase-root MuiButton-root MuiButton-text"
-          href="/library"
+          disabled={false}
           onBlur={[Function]}
+          onClick={[Function]}
           onDragLeave={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
@@ -29,13 +29,14 @@ exports[`can match snapshot 1`] = `
           onTouchMove={[Function]}
           onTouchStart={[Function]}
           tabIndex={0}
+          type="button"
         >
           <span
             className="MuiButton-label"
           >
             Library
           </span>
-        </a>
+        </button>
         <section
           className="dropzone"
           onBlur={[Function]}
@@ -86,7 +87,7 @@ exports[`can match snapshot 1`] = `
                 data-shrink={false}
                 id="undefined-label"
               >
-                Inlang
+                Book Language
               </label>
               <div
                 className="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
@@ -206,7 +207,7 @@ exports[`can match snapshot 1`] = `
                 data-shrink={false}
                 id="undefined-label"
               >
-                Outlang
+                Translation Language
               </label>
               <div
                 className="MuiInputBase-root MuiInput-root MuiInput-underline MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
@@ -335,7 +336,9 @@ exports[`can match snapshot 1`] = `
           <span
             className="MuiButton-label"
           >
-            Login
+            <span>
+              Login with Google
+            </span>
           </span>
         </button>
       </div>

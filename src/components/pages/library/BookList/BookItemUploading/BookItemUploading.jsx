@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import 'components/pages/library/BookList/BookItemUploading/BookItemUploading.scss';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,15 +13,19 @@ export default  (
   const { setBooks, setUploadingBooks } = useContext(LibraryContext);
 
   const [progress, setProgress] = useState(0);
-  let task;
-  let storageRef;
 
+  const task = useRef();
 
-  useEffect(() => {
-    storageRef = storage.ref().child(uploadUrl);
+  const startUpload = ()=>{
+    const storageRef = storage.ref().child(uploadUrl);
 
-    task = storageRef.put(book);
-    task.on('state_changed', (status) => {
+    if (!storageRef) {
+      console.err("Couldn't get storage ref in BookItemUploading.jsx")
+      return;
+    }
+
+    task.current = storageRef.put(book);
+    task.current.on('state_changed', (status) => {
         const progress = status.bytesTransferred / status.totalBytes;
         setProgress(progress);
       }, (err) => {
@@ -29,14 +33,16 @@ export default  (
       },
       () => {
         removeUpload();
-        setBooks(prevBooks => ([...prevBooks, task.snapshot.ref]));
+        setBooks(prevBooks => ([...prevBooks, task.current.snapshot.ref]));
       },
     );
-  }, [uploadUrl]);
+  }
+
+  useEffect(startUpload, [uploadUrl]);
 
   const removeUpload = () => {
-    if (task && progress < 1) {
-      task.cancel();
+    if (task.current && progress < 1) {
+      task.current.cancel();
     }
     setUploadingBooks((prevUploadingBooks) => prevUploadingBooks.filter((book) => book.uploadUrl !== uploadUrl));
   }
