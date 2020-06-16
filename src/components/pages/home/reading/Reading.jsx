@@ -3,7 +3,8 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import './Reading.scss';
 import TranslationPopup from './translation-popup/TranslationPopup';
-import translate from "services/translate-api";
+import Button from '@material-ui/core/Button';
+import translate from 'services/translate-api';
 import { BookContext } from 'App';
 
 const Reading = () => {
@@ -55,17 +56,16 @@ const Reading = () => {
 
   return (
     <div className="reading-container" ref={ref}>
-      <div
+      <Button
         className="nav-btn-back"
+        disabled={pageNb<=1}
         onClick={() => {
           setSelected(null);
-          if (pageNb > 1) {
-            setPageNb(pageNb - 1);
-          }
+          setPageNb(pageNb - 1);
         }}
       >
         {'<'}
-      </div>
+      </Button>
       <Document
         className="reading-document"
         onLoadSuccess={({ numPages }) => {
@@ -92,17 +92,16 @@ const Reading = () => {
           )}
         </Page>
       </Document>
-      <div
+      <Button
         className="nav-btn-forward"
+        disabled={pageNb >= pageCount}
         onClick={() => {
           setSelected(null);
-          if (!pageCount || pageNb < pageCount) {
-            setPageNb(pageNb + 1);
-          }
+          setPageNb(pageNb + 1);
         }}
       >
         {'>'}
-      </div>
+      </Button>
     </div>
   );
 };
