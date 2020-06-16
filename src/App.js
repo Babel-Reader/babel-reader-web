@@ -34,9 +34,7 @@ let languageList = [
 ];
 
 const fetchLanguageList = () => {
-  fetch(
-    'https://api.cognitive.microsofttranslator.com/languages?api-verson=3.0'
-  )
+  fetch(process.env.REACT_APP_TRANSLATE_LANGUAGE_LIST_URL)
     .then((res) => res.json())
     .then((res) => {
       if (res && res.translation) {
