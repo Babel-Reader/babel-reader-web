@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
+import "./Dropzone.scss"
 
 export default (props)=>{
   const { onDrop=()=>{}, accept='.pdf', children } = props;

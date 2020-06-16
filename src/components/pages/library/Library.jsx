@@ -1,35 +1,49 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { signIn, signOut, storage, upload } from 'services/firebase/firebase';
-import Button from '@material-ui/core/Button';
+import { storage, upload } from 'services/firebase/firebase';
 import { withRouter } from 'react-router-dom';
 import Dropzone from 'components/dropzone';
 import BookItem from 'components/pages/library/BookItem';
 import { BookContext } from 'App';
+import './Library.scss';
+import Header from 'components/pages/library/header';
 
 export default withRouter(({ history }) => {
-  const { user, setUser } = useContext(BookContext);
+  const { user, setFile } = useContext(BookContext);
   const [books, setBooks] = useState([]);
   const [sampleBooks, setSampleBooks] = useState([]);
 
-  const fetchBooks = ()=>{
+  const fetchBooks = () => {
     if (user) {
       const id = user.uid;
       const ref = storage.ref().child(`data/${id}/`);
       ref.listAll().then((res) => {
         setBooks(res.items);
       });
+    } else {
+      setBooks([]);
     }
 
     const sampleRef = storage.ref().child('public/');
-    sampleRef.listAll().then((res)=>{
+    sampleRef.listAll().then((res) => {
       setSampleBooks(res.items);
-    })
+    });
+  };
+
+  useEffect(fetchBooks, [user]);
+
+  const openBook = (book)=>{
+    setFile(book);
+    history.push('/');
   }
 
-  useEffect(() => {
-    fetchBooks();
-  }, [user]);
-
+  const uploadBook = (book)=>{
+    const task = upload(book, `/data/${user.uid}/${book.path}`);
+    task.on('state_changed', ()=>{
+      //todo: progress bar
+    }, (err)=>{
+      console.error(err)
+    }, fetchBooks);
+  }
 
   const bookList = (books = []) => (
     books.map((book) => {
@@ -37,7 +51,7 @@ export default withRouter(({ history }) => {
           <BookItem
             key={`book-${book.location.path}`}
             book={book}
-            history={history}
+            openBook={openBook}
           />
         );
       },
@@ -45,46 +59,34 @@ export default withRouter(({ history }) => {
   );
 
   return (
-    <>
-      <p>Library</p>
-      {user && (
-        <p>
-          Signed in as: {user.displayName}
-        </p>
-      )}
-      <Button onClick={() => {
-        signIn(setUser).then(() => {
-          fetchBooks();
-        });
-      }}>
-        sign in
-      </Button>
-      <Button onClick={() => {
-        signOut(setUser);
-        setBooks([]);
-      }}>
-        Sign out
-      </Button>
+    <div className='library'>
+      <Header {...{ history }}/>
+      <div className='library-content'>
+        <Dropzone {...{
+          onDrop: (files) => {
+            if (files[0]) {
+              user ?
+                files.forEach(uploadBook) :
+                openBook(files[0]);
+            }
+          },
+        }}>
+          Drop a PDF book here or click to open
+        </Dropzone>
+        {user && (
+          <div>
+            <h2>Your books:</h2>
+            <ul className='book-list'>
+              {bookList(books)}
+            </ul>
+          </div>
+        )}
+        <h2>Sample Books:</h2>
+        <ul className='book-list'>
+          {bookList(sampleBooks)}
+        </ul>
 
-      <Dropzone {...{
-        onDrop: (files) => {
-          const id = user.uid;
-          upload(files[0], `/data/${id}/${files[0].path}`).then(() => {
-            fetchBooks();
-          });
-        },
-      }}>
-        Drop here
-      </Dropzone>
-
-      <p>Your books:</p>
-      <ul>
-        {bookList(books)}
-      </ul>
-      <p>Sample Books:</p>
-      <ul>
-        {bookList(sampleBooks)}
-      </ul>
-    </>
+      </div>
+    </div>
   );
 });

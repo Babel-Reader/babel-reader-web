@@ -1,5 +1,5 @@
 const Http = new XMLHttpRequest();
-const url = 'https://us-central1-babel-reader-web.cloudfunctions.net/translate'; // todo: use env var
+const url = process.env.REACT_APP_TRANSLATE_URL;
 
 export default (text, params, callback) => {
   const inLang = params.inLang.key === 'auto' ? '' : params.inLang.key;

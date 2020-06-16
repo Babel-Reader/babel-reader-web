@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
-import { BookContext } from 'App';
+import './BookItem.scss';
 
-export default ({book, history})=>{
+export default ({book, openBook})=>{
   const [title, setTitle] = useState('')
-  const { setFile } = useContext(BookContext);
 
   useEffect(()=>{
     book.getMetadata().then((res)=>{
@@ -13,14 +12,14 @@ export default ({book, history})=>{
   }, [book])
 
   return (
-    <li>
+    <li className='book-list-item'>
       <Button
         onClick={() => {
           book.getDownloadURL().then(res => {
-            setFile(res);
-            history.push('/');
+            openBook(res)
           });
         }}
+        fullWidth
       >{title}</Button>
     </li>
   )
