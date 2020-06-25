@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import './Reading.scss';
 import TranslationPopup from './translation-popup/TranslationPopup';
 import Button from '@material-ui/core/Button';
-import translate from 'services/translate-api';
+import translate from 'services/TranslateApi';
 import { BookContext } from 'App';
 
 const Reading = () => {

@@ -20,7 +20,6 @@ let languageList = [
     name: 'English',
     nativeName: 'English',
   },
-
   {
     key: 'fr',
     name: 'French',
@@ -34,14 +33,15 @@ let languageList = [
 ];
 
 const fetchLanguageList = () => {
-  fetch(process.env.REACT_APP_TRANSLATE_LANGUAGE_LIST_URL)
+  return fetch(process.env.REACT_APP_TRANSLATE_LANGUAGE_LIST_URL)
     .then((res) => res.json())
     .then((res) => {
       if (res && res.translation) {
         const langValueForKey = (key) => {
           return {
             key,
-            ...res.translation[key],
+            name: res.translation[key].name,
+            nativeName: res.translation[key].nativeName,
           };
         };
 
@@ -53,11 +53,14 @@ const fetchLanguageList = () => {
         ];
         Object.keys(res.translation).forEach((key) => {
           if (key !== 'en' && key !== 'fr' && key !== 'es') {
-            languageList.push({
-              key,
-              name: res.translation[key].name,
-              nativeName: res.translation[key].nativeName,
-            });
+            languageList.push(
+              langValueForKey(key)
+              // {
+              // key,
+              // name: res.translation[key].name,
+              // nativeName: res.translation[key].nativeName,
+              // }
+            );
           }
         });
       }
@@ -84,7 +87,12 @@ function App() {
   }, [file]);
 
   useEffect(() => {
-    fetchLanguageList();
+    fetchLanguageList().then(() => {
+      setLanguages({
+        in: languageList[0],
+        out: languageList[2],
+      });
+    });
   }, []);
 
   return (

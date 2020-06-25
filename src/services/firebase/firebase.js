@@ -14,7 +14,7 @@ export const storage = firebase.storage();
 
 export const auth = firebase.auth();
 
-export const signIn = (setUser)=>{
+export const signInWithGoogle = (setUser)=>{
   let provider = new firebase.auth.GoogleAuthProvider();
 
   return auth.signInWithPopup(provider).then(() => {
@@ -25,9 +25,3 @@ export const signIn = (setUser)=>{
 export const signOut = (setUser)=>{
   return auth.signOut().then(()=>setUser(null))
 }
-
-// export const upload = (file, path) => {
-//   const reference = storage.ref().child(path);
-//   return reference && reference.put(file)
-// };
-//

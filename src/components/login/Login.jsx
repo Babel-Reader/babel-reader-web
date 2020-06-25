@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { signIn, signOut } from 'services/firebase/firebase';
+import { signInWithGoogle, signOut } from 'services/firebase/firebase';
 import './Login.scss'
 
 export default ({user, setUser, className})=>{
@@ -16,13 +16,13 @@ export default ({user, setUser, className})=>{
   return (
     <div className={`login ${className}`}>
       {user ? (
-        <Button variant='contained' onClick={(e)=>{
+        <Button fullWidth={true} variant='contained' onClick={(e)=>{
           setAnchorEl(e.currentTarget);}
         }>{user.displayName}</Button>
       )
         : (
-          <Button variant='contained' onClick={()=>{
-          signIn(setUser)}
+          <Button fullWidth={true} variant='contained' onClick={()=>{
+          signInWithGoogle(setUser)}
           }>
             <span>Login with Google</span>
           </Button>

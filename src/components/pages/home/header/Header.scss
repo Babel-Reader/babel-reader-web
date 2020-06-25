@@ -23,8 +23,9 @@
 
   .lang-input {
     display: flex;
-    min-width: 20rem;
+    flex-wrap: wrap;
     .lang-combo-box{
+      min-width: 10rem;
       margin-left: 1rem;
       width: inherit;
       flex-grow: 1;

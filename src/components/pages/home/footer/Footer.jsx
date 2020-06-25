@@ -8,6 +8,7 @@ import { BookContext } from 'App';
 const PageScaleSlider = ({ pageScale, setPageScale }) => {
   return (
     <Slider
+      className="page-scale-slider"
       value={Math.round(pageScale * 100)}
       step={1}
       min={1}
