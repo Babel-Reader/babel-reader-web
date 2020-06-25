@@ -27,7 +27,7 @@ export default ({
         <Login {...{ user, setUser }}/>
         <Divider />
 
-          <LangInput
+        <LangInput
             {...{
               label: 'Book Language',
               value: languages.in,
@@ -40,7 +40,7 @@ export default ({
             }}
           />
 
-          <LangInput
+        <LangInput
             {...{
               label: 'Translation Language',
               value: languages.out,
