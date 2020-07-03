@@ -90,13 +90,13 @@ export default withRouter(({ history }) => {
             <div>
               <h2>Your books:</h2>
               <ul className='book-list'>
-                <BookList list={books} showOptions/>
+                <BookList list={books} />
               </ul>
             </div>
           )}
           <h2>Sample Books:</h2>
           <ul className='book-list'>
-            <BookList list={sampleBooks}/>
+            <BookList list={sampleBooks} readOnly/>
           </ul>
 
         </div>

@@ -1,0 +1,12 @@
+
+.info-list{
+  list-style-type: none;
+  padding: 0;
+  .info-list-item{
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.table{
+ width: 100%;
+}

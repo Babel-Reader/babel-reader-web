@@ -24,7 +24,11 @@ export default  (
       return;
     }
 
-    task.current = storageRef.put(book);
+    const customMetadata = {
+      displayName: book.name.replace(".pdf", '')
+    }
+
+    task.current = storageRef.put(book, {customMetadata});
     task.current.on('state_changed', (status) => {
         const progress = status.bytesTransferred / status.totalBytes;
         setProgress(progress);
