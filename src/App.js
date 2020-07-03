@@ -9,12 +9,14 @@ import { auth } from 'services/firebase/firebase';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+export const LANG_AUTO = {
+  key: '??',
+  name: 'auto detect',
+  nativeName: 'auto detect',
+};
+
 let languageList = [
-  {
-    key: 'auto',
-    name: 'auto detect',
-    nativeName: 'auto detect',
-  },
+  LANG_AUTO,
   {
     key: 'en',
     name: 'English',
@@ -46,21 +48,14 @@ const fetchLanguageList = () => {
         };
 
         languageList = [
-          languageList[0],
+          LANG_AUTO,
           langValueForKey('en'),
           langValueForKey('fr'),
           langValueForKey('es'),
         ];
         Object.keys(res.translation).forEach((key) => {
           if (key !== 'en' && key !== 'fr' && key !== 'es') {
-            languageList.push(
-              langValueForKey(key)
-              // {
-              // key,
-              // name: res.translation[key].name,
-              // nativeName: res.translation[key].nativeName,
-              // }
-            );
+            languageList.push(langValueForKey(key));
           }
         });
       }
@@ -70,13 +65,14 @@ const fetchLanguageList = () => {
 export const BookContext = React.createContext({});
 
 function App() {
+  //todo: replace with single book object
   const [file, setFile] = useState("ALICE'S ADVENTURES IN WONDERLAND.pdf");
   const [user, setUser] = useState(auth.currentUser);
   const [pageNb, setPageNb] = useState(1);
   const [pageCount, setPageCount] = useState();
   const [pageScale, setPageScale] = useState(1);
   const [languages, setLanguages] = useState({
-    in: languageList[0],
+    in: LANG_AUTO,
     out: languageList[2],
   });
 
@@ -89,7 +85,7 @@ function App() {
   useEffect(() => {
     fetchLanguageList().then(() => {
       setLanguages({
-        in: languageList[0],
+        in: LANG_AUTO,
         out: languageList[2],
       });
     });

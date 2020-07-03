@@ -54,6 +54,7 @@ const Reading = () => {
     setPageScale(1);
   }, [pageNb, setPageScale]);
 
+
   return (
     <div className="reading-container" ref={ref}>
       <Button

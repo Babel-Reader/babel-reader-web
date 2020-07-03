@@ -4,6 +4,7 @@ import './BookItem.scss';
 import IconButton from '@material-ui/core/IconButton';
 import { Delete, MoreHoriz } from '@material-ui/icons';
 import EditIcon from '@material-ui/icons/Edit';
+import InfoIcon from '@material-ui/icons/Info';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Dialog from '@material-ui/core/Dialog';
@@ -12,6 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { LibraryContext } from 'components/pages/library/Library';
 import BookInfoModal from 'components/pages/library/BookList/BookItem/BookInfoModal';
 import BookRenameModal from 'components/pages/library/BookList/BookItem/BookRenameModal';
+import { LANG_AUTO } from 'App';
 
 export const getBookName = (book, metadata) =>{
   //todo: test
@@ -55,9 +57,12 @@ export default ({
     setAnchorEl(null);
   }
 
+  const bookLang = (metadata && metadata.customMetadata) ? metadata.customMetadata.language : LANG_AUTO.key;
+
   return (
     <li className='book-list-item'>
       <Button
+        classes={{label:'button-label-left-align'}}
         onClick={() => {
           book.getDownloadURL().then(res => {
             openBook(res, book.name);
@@ -66,8 +71,12 @@ export default ({
         fullWidth
       >
         {getBookName(book, metadata)}
-
       </Button>
+      {bookLang !== LANG_AUTO.key && (
+        <Button>
+          {bookLang}
+        </Button>
+      )}
       <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
         <MoreHoriz/>
       </IconButton>
@@ -79,26 +88,27 @@ export default ({
         <MenuItem onClick={()=>{
           setOpenedDialog(BookItemModalTypes.INFO)
         }}>
+          <InfoIcon/>
           <span>About</span>
         </MenuItem>
 
         {!readOnly && (
-          <>
+          <div>
             <MenuItem onClick={() => {
               setOpenedDialog(BookItemModalTypes.RENAME)
               handleMenuClose();
             }}>
-              <span>Rename</span>
               <EditIcon/>
+              <span>Rename</span>
             </MenuItem>
             <MenuItem onClick={() => {
               setOpenedDialog(BookItemModalTypes.DELETE)
               handleMenuClose();
             }}>
-              <span>Delete</span>
               <Delete/>
+              <span>Delete</span>
             </MenuItem>
-          </>
+          </div>
         )}
       </Menu>
       <Dialog
@@ -127,6 +137,7 @@ export default ({
         onClose: () => setOpenedDialog(BookItemModalTypes.NONE),
         book,
         metadata,
+        setMetadata,
       }}/>
       <BookRenameModal {...{
         open: openedDialog === BookItemModalTypes.RENAME,

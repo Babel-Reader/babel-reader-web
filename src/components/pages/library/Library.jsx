@@ -36,11 +36,11 @@ export default withRouter(({ history }) => {
 
   useEffect(fetchBooks, [user]);
 
-  const openBook = (book, name)=>{
+  const openBook = (url, name)=>{
     setFile({
       name,
-      url: book
-    });
+      url,
+    })
     history.push('/');
   }
 

@@ -6,13 +6,13 @@ import Dialog from '@material-ui/core/Dialog';
 import './OptionsModal.scss'
 import { BookContext } from 'App';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import LangInput from 'components/LangInput';
 
 export default ({
   open,
   setOpen,
   user,
   setUser,
-  LangInput,
 })=>{
   const { languages, setLanguages, languageList } = useContext(BookContext);
 
