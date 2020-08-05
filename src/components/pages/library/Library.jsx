@@ -41,7 +41,7 @@ export default withRouter(({ history }) => {
       name,
       url,
     })
-    history.push('/');
+    history.push(`/reading/${name}`);
   }
 
   const uploadBooks = (books)=>{

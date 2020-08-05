@@ -6,18 +6,16 @@ import TranslationPopup from './translation-popup/TranslationPopup';
 import Button from '@material-ui/core/Button';
 import translate from 'services/TranslateApi';
 import { BookContext } from 'App';
+import { ReadingContext } from 'components/pages/home/Home';
 
 const Reading = () => {
   const {
     languages,
     file,
-    pageNb,
-    setPageNb,
-    pageCount,
-    setPageCount,
-    pageScale,
-    setPageScale,
   } = useContext(BookContext);
+  const {
+    pageNb, setPageNb, pageCount, setPageCount, pageScale, setPageScale
+  } = useContext(ReadingContext)
   const [selected, setSelected] = useState();
   const [translation, setTranslation] = useState('');
   const ref = useRef();

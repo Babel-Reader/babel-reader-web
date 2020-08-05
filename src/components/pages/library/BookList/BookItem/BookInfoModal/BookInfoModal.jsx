@@ -93,13 +93,13 @@ export default ({
         </TableContainer>
         {isDirty && (
           <DialogActions>
-          <Button onClick={() => setNewMetadata(metadata)} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={update} color="primary">
-            save
-          </Button>
-        </DialogActions>
+            <Button onClick={() => setNewMetadata(metadata)} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={update} color="primary">
+              save
+            </Button>
+          </DialogActions>
         )}
       </DialogContent>
     </Dialog>

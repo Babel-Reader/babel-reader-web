@@ -3,7 +3,7 @@ import PageInput from './page-input/PageInput';
 
 import './Footer.scss';
 import Slider from '@material-ui/core/Slider';
-import { BookContext } from 'App';
+import { ReadingContext } from 'components/pages/home/Home';
 
 const PageScaleSlider = ({ pageScale, setPageScale }) => {
   return (
@@ -23,7 +23,7 @@ const PageScaleSlider = ({ pageScale, setPageScale }) => {
 
 export default () => {
   const { pageNb, setPageNb, pageCount, pageScale, setPageScale } = useContext(
-    BookContext
+    ReadingContext
   );
 
   return (
