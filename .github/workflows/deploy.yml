@@ -19,8 +19,8 @@ jobs:
         run: npm run build
         env:
           CI: false
-      - name: Test
-        run: npm test
+      #- name: Test
+      #  run: npm test
       - name: lint
         run: npm run lint
       - name: Deploy to Firebase
