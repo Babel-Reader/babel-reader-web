@@ -65,7 +65,7 @@ const fetchLanguageList = () => {
 export const BookContext = React.createContext({});
 
 function App() {
-  const [file, setFile] = useState("ALICE'S ADVENTURES IN WONDERLAND.pdf");
+  const [file, setFile] = useState();
   const [user, setUser] = useState(auth.currentUser);
   const [languages, setLanguages] = useState({
     in: LANG_AUTO,
@@ -101,11 +101,14 @@ function App() {
     >
       <Router>
         <Switch>
-          <Route path="/library">
-            <Library />
+          <Route path="/reading/samples/:bookName">
+            <Home isSample />
           </Route>
-          <Route path="/reading/:url">
+          <Route path="/reading/:bookName">
             <Home />
+          </Route>
+          <Route>
+            <Library />
           </Route>
         </Switch>
       </Router>
