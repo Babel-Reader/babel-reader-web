@@ -17,7 +17,7 @@ export default ({history}) => {
       <Toolbar>
         <div className='header-section left'>
           <IconButton
-            onClick={() => history.push('/library')}
+            onClick={() => history.push('/')}
           >
             <ArrowBack/>
           </IconButton>

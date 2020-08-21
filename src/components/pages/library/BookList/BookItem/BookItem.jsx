@@ -65,7 +65,7 @@ export default ({
         classes={{label:'button-label-left-align'}}
         onClick={() => {
           book.getDownloadURL().then(res => {
-            openBook(res, book.name);
+            openBook(res, book.name, readOnly);
           });
         }}
         fullWidth

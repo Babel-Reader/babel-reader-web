@@ -8,10 +8,9 @@ import translate from 'services/TranslateApi';
 import { BookContext } from 'App';
 import { ReadingContext } from 'components/pages/home/Home';
 
-const Reading = () => {
+const Reading = ({file}) => {
   const {
     languages,
-    file,
   } = useContext(BookContext);
   const {
     pageNb, setPageNb, pageCount, setPageCount, pageScale, setPageScale
@@ -52,7 +51,6 @@ const Reading = () => {
     setPageScale(1);
   }, [pageNb, setPageScale]);
 
-
   return (
     <div className="reading-container" ref={ref}>
       <Button
@@ -70,7 +68,7 @@ const Reading = () => {
         onLoadSuccess={({ numPages }) => {
           setPageCount(numPages);
         }}
-        file={file}
+        file={file.url}
       >
         <Page
           className={`reading-page`}
