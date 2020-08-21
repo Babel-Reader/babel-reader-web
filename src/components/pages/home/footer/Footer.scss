@@ -2,4 +2,11 @@
   display: flex;
   align-self: center;
   padding: 0.5rem;
+  width: 100%;
+  justify-content: space-between;
+
+  .page-scale-slider{
+    align-self: center;
+    margin: 0 0.5rem;
+  }
 }

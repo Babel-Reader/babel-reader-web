@@ -4,31 +4,26 @@
   background-color: gray;
   overflow: auto;
 
-  div[class^='nav-btn'] {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 10%;
-    position: absolute;
-    z-index: 1;
-    height: 100%;
-    background-color: rgba(240, 240, 240, 0.5);
-  }
-
   .nav-btn-back {
     left: 0;
+    bottom: 0;
+    height: 100%;
     font-size: 8vw;
     cursor: pointer;
     text-shadow: 0.4vw 0.4vw rgba(64, 62, 62, 0.25);
+    position: fixed;
+    z-index: 1;
   }
 
   .nav-btn-forward {
     right: 0;
+    bottom: 0;
+    height: 100%;
     font-size: 8vw;
     cursor: pointer;
     text-shadow: 0.4vw 0.4vw rgba(64, 62, 62, 0.25);
+    position: fixed;
+    z-index: 1;
   }
 
   .reading-document {

@@ -9,18 +9,19 @@ import { auth } from 'services/firebase/firebase';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
+export const LANG_AUTO = {
+  key: '??',
+  name: 'auto detect',
+  nativeName: 'auto detect',
+};
+
 let languageList = [
-  {
-    key: 'auto',
-    name: 'auto detect',
-    nativeName: 'auto detect',
-  },
+  LANG_AUTO,
   {
     key: 'en',
     name: 'English',
     nativeName: 'English',
   },
-
   {
     key: 'fr',
     name: 'French',
@@ -34,30 +35,27 @@ let languageList = [
 ];
 
 const fetchLanguageList = () => {
-  fetch(process.env.REACT_APP_TRANSLATE_LANGUAGE_LIST_URL)
+  return fetch(process.env.REACT_APP_TRANSLATE_LANGUAGE_LIST_URL)
     .then((res) => res.json())
     .then((res) => {
       if (res && res.translation) {
         const langValueForKey = (key) => {
           return {
             key,
-            ...res.translation[key],
+            name: res.translation[key].name,
+            nativeName: res.translation[key].nativeName,
           };
         };
 
         languageList = [
-          languageList[0],
+          LANG_AUTO,
           langValueForKey('en'),
           langValueForKey('fr'),
           langValueForKey('es'),
         ];
         Object.keys(res.translation).forEach((key) => {
           if (key !== 'en' && key !== 'fr' && key !== 'es') {
-            languageList.push({
-              key,
-              name: res.translation[key].name,
-              nativeName: res.translation[key].nativeName,
-            });
+            languageList.push(langValueForKey(key));
           }
         });
       }
@@ -67,13 +65,10 @@ const fetchLanguageList = () => {
 export const BookContext = React.createContext({});
 
 function App() {
-  const [file, setFile] = useState("ALICE'S ADVENTURES IN WONDERLAND.pdf");
+  const [file, setFile] = useState();
   const [user, setUser] = useState(auth.currentUser);
-  const [pageNb, setPageNb] = useState(1);
-  const [pageCount, setPageCount] = useState();
-  const [pageScale, setPageScale] = useState(1);
   const [languages, setLanguages] = useState({
-    in: languageList[0],
+    in: LANG_AUTO,
     out: languageList[2],
   });
 
@@ -84,7 +79,12 @@ function App() {
   }, [file]);
 
   useEffect(() => {
-    fetchLanguageList();
+    fetchLanguageList().then(() => {
+      setLanguages({
+        in: LANG_AUTO,
+        out: languageList[2],
+      });
+    });
   }, []);
 
   return (
@@ -92,14 +92,8 @@ function App() {
       value={{
         file,
         setFile,
-        pageNb,
-        setPageNb,
-        pageCount,
-        setPageCount,
         languages,
         setLanguages,
-        pageScale,
-        setPageScale,
         languageList,
         user,
         setUser,
@@ -107,11 +101,14 @@ function App() {
     >
       <Router>
         <Switch>
-          <Route path="/library">
-            <Library />
+          <Route path="/reading/samples/:bookName">
+            <Home isSample />
           </Route>
-          <Route path="/">
+          <Route path="/reading/:bookName">
             <Home />
+          </Route>
+          <Route>
+            <Library />
           </Route>
         </Switch>
       </Router>

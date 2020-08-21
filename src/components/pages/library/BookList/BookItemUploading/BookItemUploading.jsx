@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { Clear } from '@material-ui/icons';
 import { storage } from 'services/firebase/firebase';
 import { LibraryContext } from 'components/pages/library/Library';
+import { LANG_AUTO } from 'App';
 
 export default  (
   props,
@@ -24,7 +25,12 @@ export default  (
       return;
     }
 
-    task.current = storageRef.put(book);
+    const customMetadata = {
+      displayName: book.name.replace(".pdf", ''),
+      language: LANG_AUTO.key,
+    }
+
+    task.current = storageRef.put(book, {customMetadata});
     task.current.on('state_changed', (status) => {
         const progress = status.bytesTransferred / status.totalBytes;
         setProgress(progress);

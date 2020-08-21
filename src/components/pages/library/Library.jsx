@@ -17,6 +17,7 @@ export default withRouter(({ history }) => {
   const [sampleBooks, setSampleBooks] = useState([]);
   const [uploadingBooks, setUploadingBooks] = useState([]);
 
+  //todo: move to service
   const fetchBooks = () => {
     if (user) {
       const id = user.uid;
@@ -36,12 +37,14 @@ export default withRouter(({ history }) => {
 
   useEffect(fetchBooks, [user]);
 
-  const openBook = (book, name)=>{
+  const openBook = (url, name, readOnly)=>{
     setFile({
       name,
-      url: book
-    });
-    history.push('/');
+      url,
+    })
+
+    const route = `/reading/` + (readOnly ? 'samples/' : '') + name;
+    history.push(route);
   }
 
   const uploadBooks = (books)=>{
@@ -74,7 +77,7 @@ export default withRouter(({ history }) => {
               if (files[0]) {
                 user ?
                   uploadBooks(files) :
-                  openBook(files[0]);
+                  openBook(files[0], files[0].name);
               }
             },
           }}>
@@ -90,15 +93,14 @@ export default withRouter(({ history }) => {
             <div>
               <h2>Your books:</h2>
               <ul className='book-list'>
-                <BookList list={books} showOptions/>
+                <BookList list={books} />
               </ul>
             </div>
           )}
           <h2>Sample Books:</h2>
           <ul className='book-list'>
-            <BookList list={sampleBooks}/>
+            <BookList list={sampleBooks} readOnly/>
           </ul>
-
         </div>
       </div>
     </LibraryContext.Provider>

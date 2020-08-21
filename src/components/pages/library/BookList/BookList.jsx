@@ -3,7 +3,7 @@ import { LibraryContext } from 'components/pages/library/Library';
 import BookItem from 'components/pages/library/BookList/BookItem';
 import BookItemUploading from 'components/pages/library/BookList/BookItemUploading';
 
-const BookList =  ({list, showOptions=false})=>{
+const BookList =  ({list, readOnly=false})=>{
   const { setBooks } = useContext(LibraryContext);
 
   const deleteBook = (book)=>{
@@ -16,7 +16,7 @@ const BookList =  ({list, showOptions=false})=>{
     list.map((book) => (
       <BookItem
         key={`book-${book.location.path}`}
-        {...{ book, showOptions, deleteBook }}
+        {...{ book, readOnly, deleteBook }}
       />
     ))
   );

@@ -6,7 +6,7 @@ import Header from '../Header';
 
 let languageList = [
   {
-    key: 'auto',
+    key: '??',
     name: 'auto detect',
     nativeName: 'auto detect',
   },
